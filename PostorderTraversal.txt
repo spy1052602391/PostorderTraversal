@@ -1,0 +1,25 @@
+
+class Solution {
+    public boolean IsTreeBST(int[] sequence,int start,int end){
+        if(start >= end)
+            return true;
+        int i;
+        for(i=start; i<end; i++){
+            if(sequence[i] > sequence[end])   //从最左边开始，end 是二叉搜索树的根节点，如果有值大于根节点了说明到右树了
+                break;
+        }
+        for(int j=i; j<end; j++){
+            if(sequence[j] < sequence[end])   //如果在右树这边，有值小于根节点，说明不是搜索二叉树的后序遍历
+                return false;
+        }
+        return IsTreeBST(sequence,start,i-1) && IsTreeBST(sequence,i,end-1); //将树分为左右两个子树递归下去
+    }
+    public boolean VerifySquenceOfBST(int [] sequence) {
+        if(sequence.length == 0)
+            return false;
+        return IsTreeBST(sequence,0,sequence.length-1);
+    }
+}
+
+public class Main {
+}
